@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Opal</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      width: 260px;
+      background: #111112;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      color: #e8e8e8;
+    }
+
+    /* ── header ── */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 14px 12px;
+      border-bottom: 1px solid #222224;
+    }
+
+    .header img {
+      width: 32px;
+      height: 32px;
+      border-radius: 7px;
+      flex-shrink: 0;
+    }
+
+    .header-text h1 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .header-text p {
+      font-size: 0.7rem;
+      color: #636366;
+      margin-top: 1px;
+    }
+
+    /* ── status row ── */
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 14px;
+      border-bottom: 1px solid #222224;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #3a3a3c;
+      flex-shrink: 0;
+    }
+    .dot.active { background: #30d158; box-shadow: 0 0 5px #30d15880; }
+    .dot.error  { background: #ff453a; }
+
+    .status-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #e8e8e8;
+    }
+
+    .session-name {
+      margin-left: auto;
+      font-size: 0.72rem;
+      color: #636366;
+      max-width: 110px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* ── sections ── */
+    .section {
+      padding: 10px 14px 8px;
+      border-bottom: 1px solid #1c1c1e;
+    }
+
+    .section-title {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      color: #636366;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .list-item {
+      font-size: 0.82rem;
+      color: #c7c7cc;
+      padding: 3px 0;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .list-item::before {
+      content: "";
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #48484a;
+      flex-shrink: 0;
+    }
+
+    /* ── error ── */
+    .error-box {
+      margin: 10px 14px;
+      background: #2c1010;
+      border: 1px solid #4a1515;
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 0.73rem;
+      color: #ff6b6b;
+      line-height: 1.4;
+    }
+
+    /* ── footer ── */
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 14px;
+    }
+
+    .refresh-btn {
+      font-size: 0.75rem;
+      color: #48484a;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 3px 0;
+    }
+    .refresh-btn:hover { color: #aeaeb2; }
+
+    .wordmark {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: #2c2c2e;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <img src="icons/opal-logo.png" alt="Opal">
+    <div class="header-text">
+      <h1>Opal</h1>
+      <p>Firefox</p>
+    </div>
+  </div>
+
+  <div class="status">
+    <div class="dot" id="dot"></div>
+    <span class="status-label" id="status-label">Loading…</span>
+    <span class="session-name" id="session-name"></span>
+  </div>
+
+  <div id="error-box" class="error-box" style="display:none;"></div>
+
+  <div id="categories-section" class="section" style="display:none;">
+    <div class="section-title">Blocked Categories</div>
+    <div id="categories-list"></div>
+  </div>
+
+  <div id="domains-section" class="section" style="display:none;">
+    <div class="section-title">Blocked Sites</div>
+    <div id="domains-list"></div>
+  </div>
+
+  <div class="footer">
+    <button class="refresh-btn" id="refresh-btn">↻ Refresh</button>
+    <span class="wordmark">Opal</span>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

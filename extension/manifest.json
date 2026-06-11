@@ -1,0 +1,38 @@
+{
+  "manifest_version": 2,
+  "name": "Opal for Firefox",
+  "version": "1.0.0",
+  "description": "Enforces Opal screen-time blocks inside Zen Browser and Firefox.",
+  "author": "Lorenz Maisch",
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "opal-firefox@lorenzmaisch",
+      "strict_min_version": "109.0"
+    }
+  },
+
+  "icons": {
+    "48": "icons/opal-logo.png",
+    "96": "icons/opal-logo.png"
+  },
+
+  "browser_action": {
+    "default_icon": "icons/opal-logo.png",
+    "default_title": "Opal",
+    "default_popup": "popup.html"
+  },
+
+  "background": {
+    "scripts": ["categories.js", "background.js"],
+    "persistent": true
+  },
+
+  "permissions": [
+    "nativeMessaging",
+    "webRequest",
+    "webRequestBlocking",
+    "storage",
+    "<all_urls>"
+  ]
+}

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blocked by Opal</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #f5f5f7;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+      color: #1d1d1f;
+    }
+
+    .card {
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+      padding: 0 24px;
+    }
+
+    /* Opal orb */
+    .orb {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 32px;
+      position: relative;
+    }
+
+    .orb svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 8px 24px rgba(0, 200, 150, 0.35));
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #1d1d1f;
+      margin-bottom: 10px;
+    }
+
+    .tagline {
+      font-size: 1rem;
+      color: #6e6e73;
+      margin-bottom: 32px;
+      line-height: 1.5;
+    }
+
+    .domain-pill {
+      display: inline-block;
+      background: #e8e8ed;
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 0.9rem;
+      color: #3a3a3c;
+      margin-bottom: 36px;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .btn-back {
+      display: inline-block;
+      background: #00c896;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 13px 32px;
+      border-radius: 980px;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: background 0.15s, transform 0.1s;
+      letter-spacing: -0.01em;
+    }
+
+    .btn-back:hover  { background: #00b386; }
+    .btn-back:active { transform: scale(0.97); }
+
+    .wordmark {
+      margin-top: 48px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: #aeaeb2;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+
+    <!-- Opal-style orb -->
+    <div class="orb">
+      <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="orb-bg" cx="42%" cy="35%" r="60%">
+            <stop offset="0%"   stop-color="#00e6ac"/>
+            <stop offset="100%" stop-color="#00916e"/>
+          </radialGradient>
+          <radialGradient id="shine" cx="35%" cy="28%" r="45%">
+            <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.45"/>
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <!-- Orb body -->
+        <circle cx="60" cy="60" r="56" fill="url(#orb-bg)"/>
+        <!-- Specular shine -->
+        <ellipse cx="48" cy="40" rx="26" ry="18" fill="url(#shine)"/>
+        <!-- Shield icon -->
+        <path d="M60 28L38 37.5v16c0 12.4 9.4 24 22 27.1C72.6 77.5 82 65.9 82 53.5v-16L60 28z"
+              fill="white" fill-opacity="0.25"/>
+        <path d="M60 34L44 42v11.5c0 8.7 6.6 16.8 16 19.2 9.4-2.4 16-10.5 16-19.2V42L60 34z"
+              fill="white" fill-opacity="0.2"/>
+        <path d="M53 54l5.5 5.5L68 49" stroke="white" stroke-width="3"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <h1>Site blocked</h1>
+    <p class="tagline">Opal is keeping you focused.<br>You're doing great.</p>
+
+    <div class="domain-pill" id="domain"></div>
+
+    <button class="btn-back" onclick="history.back()">Go back</button>
+
+    <p class="wordmark">Opal</p>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const url = params.get("url") || "";
+    let display = url;
+    try { display = new URL(url).hostname.replace(/^www\./, ""); } catch {}
+    document.getElementById("domain").textContent = display;
+  </script>
+</body>
+</html>
