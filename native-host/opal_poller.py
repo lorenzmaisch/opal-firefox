@@ -71,12 +71,20 @@ def check_schedule():
                 d = json.loads((schedules_dir / name).read_text())
                 if today not in d.get("repeatDays", []):
                     continue
+                ov = d.get("override", {})
+                if ov.get("action") == "cancel":
+                    ov_start = ov.get("startDate", 0) + APPLE_EPOCH
+                    ov_end   = ov.get("endDate", 0) + APPLE_EPOCH
+                    if ov_start <= now.timestamp() <= ov_end:
+                        continue
                 t = d.get("time", {})
                 if in_time_range(now, t.get("startTime", {}), t.get("endTime", {})):
                     label = (d.get("emoji", "") + " " + d.get("name", "")).strip()
                     return True, label or "Scheduled Block"
             except Exception:
                 pass
+        # Schedules dir is authoritative — skip legacy fallback
+        return False, None
 
     # Fall back to scheduleConfiguration.dat (no name available)
     path = BASE / "scheduleConfiguration.dat"
